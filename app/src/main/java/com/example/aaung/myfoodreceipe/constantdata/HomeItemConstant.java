@@ -11,11 +11,11 @@ public class HomeItemConstant {
     static{
         homeItems = new ArrayList<>();
 
-        addItem(new HomeItem("Main Dish", "home_main_dishes"));
-        addItem(new HomeItem("Soup", "home_soups"));
-        addItem(new HomeItem("Salad", "home_salads"));
-        addItem(new HomeItem("Dessert", "home_desserts"));
-        addItem(new HomeItem("Drinks", "home_drinks"));
+        addItem(new HomeItem("cat_001","Main Dish", "home_main_dishes"));
+        addItem(new HomeItem("cat_002","Soup", "home_soups"));
+        addItem(new HomeItem("cat_003","Salad", "home_salads"));
+        addItem(new HomeItem("cat_004","Dessert", "home_desserts"));
+        addItem(new HomeItem("cat_005","Drinks", "home_drinks"));
     }
 
     private static void addItem(HomeItem item){

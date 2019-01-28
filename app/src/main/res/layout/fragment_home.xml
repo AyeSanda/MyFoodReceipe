@@ -6,10 +6,12 @@
     tools:context=".fragment.HomeFragment">
 
     <LinearLayout
+        android:id="@+id/layout_home_background"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_200"
         android:background="@drawable/home_recipe_bg"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
 
     </LinearLayout>
     <!-- TODO: Update blank fragment layout -->
@@ -17,7 +19,8 @@
        android:id="@+id/rv_recipe"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:layout_alignParentBottom="true">
+       android:layout_alignParentBottom="true"
+       android:layout_below="@+id/layout_home_background">
 
    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

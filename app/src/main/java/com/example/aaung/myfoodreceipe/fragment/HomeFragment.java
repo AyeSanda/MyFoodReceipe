@@ -12,16 +12,16 @@ import android.view.ViewGroup;
 
 import com.example.aaung.myfoodreceipe.R;
 import com.example.aaung.myfoodreceipe.adapter.HomeItemAdapter;
+import com.example.aaung.myfoodreceipe.model.HomeItem;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeItemAdapter.HomeItemClickListener {
 
     private HomeItemAdapter mHomeItemAdapter;
 
@@ -51,25 +51,20 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         RecyclerView mRecyclerView = view.findViewById(R.id.rv_recipe);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
-        mHomeItemAdapter = new HomeItemAdapter();
+        mHomeItemAdapter = new HomeItemAdapter(getContext(), this);
         mRecyclerView.setAdapter(mHomeItemAdapter);
+
+
         //mHomeItemAdapter
         return view;
     }
 
+    @Override
+    public void onHomeItemClickListener(HomeItem item) {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_layout,CategoryListFragment.newInstance(item.getCategoryId(),false),CategoryListFragment.class.getName())
+                .commit();
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+
     }
 }

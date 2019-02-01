@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.example.aaung.myfoodreceipe.fragment.CategoryListFragment;
 import com.example.aaung.myfoodreceipe.fragment.HomeFragment;
+import com.example.aaung.myfoodreceipe.fragment.MoreFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -24,24 +25,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
-        handleIntent(getIntent());
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_options, menu);
-
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-
-        return true;
     }
 
     @Override
@@ -55,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = CategoryListFragment.newInstance("",true);
                 break;
             case R.id.navigation_more:
+                fragment = MoreFragment.newInstance();
                 break;
         }
         return loadFragment(fragment);
@@ -66,21 +50,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.container_layout, fragment)
-                    .addToBackStack(null)
+                    .addToBackStack(fragment.getTag())
                     .commit();
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-
-        handleIntent(intent);
-    }
-
-    private void handleIntent(Intent intent){
-
     }
 
 }

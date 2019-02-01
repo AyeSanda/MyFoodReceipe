@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,12 +51,17 @@ public class HomeFragment extends Fragment implements HomeItemAdapter.HomeItemCl
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         RecyclerView mRecyclerView = view.findViewById(R.id.rv_recipe);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        //mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));\
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         mHomeItemAdapter = new HomeItemAdapter(getContext(), this);
         mRecyclerView.setAdapter(mHomeItemAdapter);
 
 
-        //mHomeItemAdapter
+        RecyclerView mRecyclerView2 = view.findViewById(R.id.rv_meal_set);
+        //mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));\
+        mRecyclerView2.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        mHomeItemAdapter = new HomeItemAdapter(getContext(), this);
+        mRecyclerView2.setAdapter(mHomeItemAdapter);
         return view;
     }
 
@@ -63,6 +69,7 @@ public class HomeFragment extends Fragment implements HomeItemAdapter.HomeItemCl
     public void onHomeItemClickListener(HomeItem item) {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container_layout,CategoryListFragment.newInstance(item.getCategoryId(),false),CategoryListFragment.class.getName())
+                .addToBackStack(CategoryListFragment.class.getName())
                 .commit();
 
 

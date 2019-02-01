@@ -1,26 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.HomeFragment">
 
     <LinearLayout
-        android:id="@+id/layout_home_background"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_200"
-        android:background="@drawable/home_recipe_bg"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/layout_home_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_200"
+            android:layout_alignParentTop="true"
+            android:background="@android:drawable/btn_default"
+            android:orientation="horizontal"></LinearLayout>
+
+    <!--<View-->
+        <!--android:id="@+id/div_1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dp_5"-->
+        <!--android:layout_marginTop="@dimen/dp_5"-->
+        <!--android:layout_marginBottom="@dimen/dp_5"-->
+        <!--android:background="@android:color/darker_gray"-->
+        <!--android:layout_below="@+id/layout_home_background">-->
+    <!--</View>-->
+
+    <!-- Categories layout -->
+    <LinearLayout
+        android:id="@+id/layout_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/layout_home_background"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            style="@style/home_category_text"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:id="@+id/txt_see_all_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See All"
+            android:textColor="@android:color/holo_blue_dark"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:gravity="right"
+            android:layout_gravity="end"/>
     </LinearLayout>
-    <!-- TODO: Update blank fragment layout -->
-   <android.support.v7.widget.RecyclerView
+
+    <!-- Meal set layout -->
+    <android.support.v7.widget.RecyclerView
        android:id="@+id/rv_recipe"
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_alignParentBottom="true"
-       android:layout_below="@+id/layout_home_background">
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/layout_categories" />
 
-   </android.support.v7.widget.RecyclerView>
-</RelativeLayout>
+    <!--<View-->
+        <!--android:id="@+id/div_2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/dp_5"-->
+        <!--android:layout_marginTop="@dimen/dp_5"-->
+        <!--android:layout_marginBottom="@dimen/dp_5"-->
+        <!--android:background="@android:color/darker_gray"-->
+        <!--android:layout_below="@+id/rv_recipe">-->
+    <!--</View>-->
+
+    <LinearLayout
+        android:id="@+id/layout_meal_set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/rv_recipe"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delicious Meal Sets"
+            style="@style/home_category_text"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_meal_set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/layout_meal_set">
+    </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</ScrollView>

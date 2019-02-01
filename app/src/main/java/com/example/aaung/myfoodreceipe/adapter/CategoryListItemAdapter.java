@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,23 +17,36 @@ import com.example.aaung.myfoodreceipe.model.HomeItem;
 
 import java.util.List;
 
-public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.MyViewHolder> {
+public class CategoryListItemAdapter extends RecyclerView.Adapter<CategoryListItemAdapter.MyViewHolder> {
 
     public Context mContext;
     public List<HomeItem> mHomeItemList;
-    private HomeItemClickListener mListener;
+    private CategoryItemClickListener mListener;
 
 
-    public HomeItemAdapter(Context mContext, HomeItemClickListener listener){
+    public CategoryListItemAdapter(Context mContext, List<HomeItem> homeItemList, CategoryItemClickListener listener){
         this.mListener = listener;
         this.mContext = mContext;
-        this.mHomeItemList = HomeItemConstant.homeItems;
+        setFilter(homeItemList);
+    }
+
+    public void setFilter(List<HomeItem> filterItemList){
+
+        if(mHomeItemList != null && mHomeItemList.size() > 0){
+            this.mHomeItemList.clear();
+            this.mHomeItemList.addAll(filterItemList);
+        }else {
+            this.mHomeItemList = filterItemList;
+        }
+
+        Log.e("ItemCount Before", mHomeItemList.size()+"");
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.home_recipe_items,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.category_list_items,parent,false);
         MyViewHolder viewHolder = new MyViewHolder(view);
 
         return viewHolder;
@@ -47,21 +61,21 @@ public class HomeItemAdapter extends RecyclerView.Adapter<HomeItemAdapter.MyView
         Drawable drawable = mContext.getResources().getDrawable(imageId);
         holder.mHomeItemImage.setBackground(drawable);
         holder.mHomeItemName.setText(mHomeItem.getCategoryName());
-
         holder.mHomeItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onHomeItemClickListener(mHomeItem);
+                mListener.onCategoryItemClickListener(mHomeItem);
             }
         });
     }
 
-    public interface HomeItemClickListener{
-        void onHomeItemClickListener(HomeItem item);
+    public interface CategoryItemClickListener{
+        void onCategoryItemClickListener(HomeItem item);
     }
 
     @Override
     public int getItemCount() {
+        Log.e("ItemCount After", mHomeItemList.size()+"");
         return mHomeItemList.size();
     }
 
